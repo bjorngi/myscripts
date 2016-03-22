@@ -1,0 +1,17 @@
+# Depends on volnoti
+#!/bin/bash
+
+re="\[([a-z]*?)\]"
+res=$(amixer sset Master toggle)
+if [[ $res =~ $re ]]
+then
+  case ${BASH_REMATCH[1]} in
+    off)
+      volnoti-show -m
+      ;;
+    on)
+      echo "It's on!"
+      ;;
+  esac
+  
+fi
