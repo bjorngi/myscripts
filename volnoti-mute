@@ -10,7 +10,7 @@ then
       volnoti-show -m
       ;;
     on)
-      echo "It's on!"
+      volnoti-volume 0+
       ;;
   esac
   
