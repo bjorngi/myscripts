@@ -1,17 +1,11 @@
 # Depends on volnoti
 #!/bin/bash
 
-re="\[([a-z]*?)\]"
-res=$(amixer sset Master $1)
+re="\[([0-9]*?)\%\]"
+res=$(amixer sset Master $1 unmute)
+
 if [[ $res =~ $re ]]
 then
-  case ${BASH_REMATCH[1]} in
-    off)
-      volnoti-show -m
-      ;;
-    on)
-      echo "It's on!"
-      ;;
-  esac
-  
+  volume=${BASH_REMATCH[1]}
+  volnoti-show $volume
 fi
