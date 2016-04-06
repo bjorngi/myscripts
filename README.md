@@ -13,3 +13,6 @@ Show volume popup based on volume (volnoti)
 ## udev
 ### 99-lowbat.rules
 Suspends computer on >5% battery and discharning
+
+## rw (Repo Watch)
+Lists all repositories in config file ```~/.config/repowatch/repos``` and displays state of them.

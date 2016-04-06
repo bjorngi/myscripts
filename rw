@@ -1,0 +1,26 @@
+#!/bin/sh
+
+## Repo Watch
+
+repo_file="$HOME/.config/repowatch/repos"
+
+readarray -t repositories < $repo_file
+
+for i in "${repositories[@]}"
+do
+  cd $i;
+  repository=$(basename `git rev-parse --show-toplevel`);
+  changed=$(git status --porcelain 2>/dev/null| egrep "^(M| M)" | wc -l)
+  new=$(git ls-files . --exclude-standard --others | wc -l)
+  branch=$(git rev-parse --abbrev-ref HEAD)
+  totalchange=$(($changed + $new))
+
+  if test $totalchange -gt 0;
+  then
+    repo_color=1
+  else
+    repo_color=2
+  fi
+
+  echo -e "$(tput setaf 7)$(tput bold)$repository: $(tput setaf $repo_color)$branch $(tput setaf 7)($changed/$new)"
+done
